@@ -1,0 +1,18 @@
+create database spotify;
+use database spotify;
+CREATE TABLE Spotify_Tracks ( "Track Name" VARCHAR(255), "Album Name" VARCHAR(255), "Artist Name" VARCHAR(255), "Duration (ms)" INT, "Popularity" INT, "Spotify URL" VARCHAR(512) );
+
+CREATE STAGE my_s3_stage
+URL='s3://spotify-hm2/output/'
+CREDENTIALS = (AWS_KEY_ID = '' AWS_SECRET_KEY = '');
+
+show stages;
+
+CREATE FILE FORMAT my_csv_format
+TYPE = 'CSV'
+FIELD_OPTIONALLY_ENCLOSED_BY = '"'
+SKIP_HEADER = 1
+FIELD_DELIMITER = ','
+NULL_IF = ('NULL', 'null');
+
+select * from spotify_tracks;
